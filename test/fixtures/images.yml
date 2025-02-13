@@ -3,11 +3,9 @@
 one:
   alt_text: MyString
   output_format: MyString
-  include_seo_terms: false
   seo_terms: MyString
 
 two:
   alt_text: MyString
   output_format: MyString
-  include_seo_terms: false
   seo_terms: MyString

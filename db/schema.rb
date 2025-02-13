@@ -47,8 +47,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_12_144256) do
     t.integer "resize_width"
     t.integer "resize_height"
     t.integer "quality"
+    t.string "language"
     t.string "alt_text"
-    t.boolean "include_seo_terms"
     t.string "seo_terms"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

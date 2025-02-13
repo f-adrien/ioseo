@@ -5,8 +5,8 @@ class CreateImages < ActiveRecord::Migration[7.1]
       t.integer :resize_width
       t.integer :resize_height
       t.integer :quality
+      t.string :language
       t.string :alt_text
-      t.boolean :include_seo_terms
       t.string :seo_terms
 
       t.timestamps

@@ -46,6 +46,7 @@ class ImagesController < ApplicationController
   end
 
   def image_params
-    params.require(:image).permit(:output_format, :include_seo_terms, :seo_terms, :resize_width, :quality, :file)
+    params.require(:image).permit(:output_format, :language, :seo_terms, :resize_width, :quality,
+                                  :file)
   end
 end

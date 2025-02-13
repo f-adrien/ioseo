@@ -1,42 +1,39 @@
 <div class="container">
   <h1>Upload an Image</h1>
-
-  <%= form_with model: @image, local: true, html: { multipart: true, class: 'row' } do |f| %>
+  <%= simple_form_for @image, html: { multipart: true, class: 'row' } do |f| %>
     <div class='col-md-6'>
       <%= f.label :file, "Select image file" %>
       <%= f.file_field :file %>
     </div>
-
     <div class='col-md-6'>
-      <%= f.label :output_format, "Output Format (e.g., webp, jpg, png)" %>
-      <%= f.text_field :output_format, placeholder: "webp" %>
+      <%= f.input :output_format, 
+                  as: :select,
+                  collection: %w[webp jpg png], 
+                  selected: 'webp' %>
     </div>
-
     <div class='col-md-6'>
       <%= f.label :resize_width, "Resize Image Width (pixels, optional)" %>
       <%= f.number_field :resize_width, min: 1 %>
     </div>
-
     <div class='col-md-6'>
       <%= f.label :quality, "Quality (default 75, optional)" %>
-      <%= f.number_field :quality, min: 1, max: 100 %>
+      <%= f.number_field :quality, min: 1, max: 100, value: 75 %>
     </div>
-
     <div class='col-md-6'>
-      <%= f.label :seo_terms, "SEO Keywords (comma-separated)" %>
+      <%= f.input :language,
+                  label: "Alt Text and Name Language",
+                  as: :select,
+                  collection: %w[English French German Spanish Italian Dutch Portuguese Russian Chinese Japanese Korean Arabic], 
+                  selected: 'French' %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.label :seo_terms, "SEO Keywords (comma-separated, optional)" %>
       <%= f.text_field :seo_terms %>
     </div>
-
-    <div class='col-md-6 d-flex align-items-center'>
-      <%= f.label :include_seo_terms, "Include custom SEO keywords?" %>
-      <%= f.check_box :include_seo_terms %>
-    </div>
-
     <div class='col-md-6'>
       <%= f.submit "Upload Image" %>
     </div>
   <% end %>
-
   <div style="text-align: center; margin-top: 15px;">
     <%= link_to "Back to list", images_path %>
   </div>

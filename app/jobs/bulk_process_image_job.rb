@@ -17,7 +17,7 @@ class BulkProcessImagesJob < ApplicationJob
     images.each do |image|
       # Add a short text introduction per image.
       image_intro = "Image ID #{image.id}."
-      image_intro += " Keywords: #{image.seo_terms}." if image.include_seo_terms && image.seo_terms.present?
+      image_intro += " Keywords: #{image.seo_terms}." if image.seo_terms.present?
       messages_content << { 'type' => 'text', 'text' => image_intro }
 
       # Download and encode the image.

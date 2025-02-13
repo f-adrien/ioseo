@@ -65,11 +65,9 @@ class ProcessImageJob < ApplicationJob
     data_url = "data:image/#{ext};base64,#{base64_image}"
 
     # Build the messages array for the API.
-    prompt_text = 'Provide a SEO-optimized alt-text and name for this image. Your response must only contain a string like this: {"alt": "Alt text here", "name": "Filename here"}.'
+    prompt_text = "Provide a SEO-optimized alt-text and name for this image in #{image.language}. Your response must only contain a string like this: {\"alt\": \"Alt text here\", \"name\": \"Filename here\"}."
 
-    if image.include_seo_terms && image.seo_terms.present?
-      prompt_text += " Also, include the following SEO keywords: #{image.seo_terms}."
-    end
+    prompt_text += " Also, include the following SEO keywords: #{image.seo_terms}." if image.seo_terms.present?
 
     messages = [
       {
