@@ -10,6 +10,6 @@ class Image < ApplicationRecord
   private
 
   def enqueue_processing
-    ProcessImageJob.perform_later(id)
+    ProcessImageJob.perform_now(id)
   end
 end
