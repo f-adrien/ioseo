@@ -1,0 +1,61 @@
+<div class="container">
+  <h1>Uploaded Images</h1>
+  <%= form_with url: bulk_process_images_path, method: :post, local: true do %>
+    <table>
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Original Image</th>
+          <th>Processed Image</th>
+          <th>Size Difference</th>
+          <th>Alt Text</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @images.each do |image| %>
+          <tr>
+            <td>
+              <%= check_box_tag "image_ids[]", image.id %>
+            </td>
+            <td>
+              <% if image.file.attached? %>
+                <%= image_tag image.file.variant(resize_to_limit: [150, 150]), alt: "Original Image" %>
+                <div>size: <%= image.file.byte_size / 1000 %> ko</div>
+              <% else %>
+                N/A
+              <% end %>
+            </td>
+            <td>
+              <% if image.processed_file.attached? %>
+                <%= link_to image_tag(image.processed_file.variant(resize_to_limit: [150, 150]), alt: image.alt_text), rails_blob_url(image.processed_file, disposition: "attachment") %>
+                <div>size: <%= image.processed_file.byte_size / 1000 %> ko</div>
+              <% else %>
+                <span class="processing">Processing…</span>
+              <% end %>
+            </td>
+            <td>
+              <% if image.processed_file.attached? %>
+                <div><%= image.processed_file.byte_size / 1000 - image.file.byte_size / 1000 %> ko</div>
+                <div>(<%= ((image.processed_file.byte_size - image.file.byte_size) / image.file.byte_size.to_f * 100).round(2) %>%)</div>
+              <% end %>
+            </td>
+            <td>
+              <%= image.alt_text %>
+            </td>
+            <td>
+              <%= image.processed_file.filename %>
+            </td>
+            <td>
+              <%= link_to "Delete", image_path(image), method: :delete, data: { confirm: "Are you sure?" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  <div style="text-align: center; margin-top: 15px;">
+    <%= link_to "Upload New Image", new_image_path, class: "button" %>
+  </div>
+</div>
